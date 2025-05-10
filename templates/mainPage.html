@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../js/chat.js" defer></script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/comments.js" defer></script>
+    <script src="../js/likes.js" defer></script>
+    <script src="../js/posts.js" defer></script>
+    <script src="../js/session.js" defer></script>
+    <title>Welcome Page</title>
+</head>
+
+<body>
+    <!-- Main Page -->
+    <section id="mainPage">
+        <div class="container-main">
+            <div>
+                <div class="logo-main">
+                    <img src="../style/logo.png" alt="Logo" style="max-width: 200px;">
+                </div>
+                <div class="buttons-main">
+                    <button id="logoutButton" class="button-main" style="display: none;">Logout</button>
+                    <button id="postsButton" class="button-main">Posts</button>
+                    <button id="signUpButton" class="button-main">Sign Up</button>
+                    <button id="logInButton" class="button-main">Log In</button>
+                    <button id="aboutUsButton" class="button-main">About Us</button>
+                    <!-- <button id="errorButton" class="button-main" onclick="errorPage(500,'500!');">500</button>    
+                    <button id="errorButton" class="button-main" onclick="errorPage(400,'400!');">400</button>    
+                    <button id="errorButton" class="button-main" onclick="errorPage(404,'404!');">404</button>     -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sign Up Form -->
+    <section id="signUpSection" hidden>
+        <div class="container-main">
+            <h2>Registration Form</h2>
+            <p style="color: red;" id="feedbackMessage"></p>
+            <form id="registrationForm" action="/signup" method="post">
+                <p class="feedback-message" id="feedbackMessage"></p>
+        
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="fname" required>
+                    
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" name="lname" required>
+                    
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="1" max="120" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+        
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" placeholder="Password" id="password" name="password" required>
+                </div>
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <button class="return-button" onclick="window.location.href='http://localhost:8888/';">Return</button>
+    </section>
+
+    <!-- Log In Form -->
+    <section id="logInSection" hidden>
+        <div class="container-main">
+            <h2>Log In Form</h2>
+            <p id="logerror"></p>
+            <form id="loginForm">               
+                <label for="userOremail">Enter your Username or Email:</label>
+                <input type="text" id="userOremail" name="userOremail" required>
+                <label for="pass">Password:</label>
+                <input type="password" placeholder="Password" id="pass" name="pass" required>
+                <br><input type="submit" value="Submit">
+            </form>
+            <p>Don't have an account?</p>    
+              
+            <button id="signUpButtonLogin" class="button-main">Sign Up</button>
+           
+        </div>
+        <button class="return-button" onclick="window.location.href='http://localhost:8888/';">Return</button>
+    </section>
+
+    <!-- Post Page -->
+    <section id="postPageSection" hidden>
+        <div class="sidebar-post left-sidebar">
+            <br>
+            <h2>Filter</h2>
+            <br>
+            <a href="javascript:void(0);" onclick="toggleDropdown('categoryOptions')" class="button-side">Categories</a>
+            <div class="dropdown-post" id="categoryOptions">
+                <button  class="button-side" value="Travel">Travel</button><br>
+                <button  class="button-side"  value="Sport">Sport</button><br>
+                <button  class="button-side"  value="Food">Food</button><br>
+                <button  class="button-side"  value="Nature">Nature</button><br>
+                <button  class="button-side"  value="Liked">Liked</button><br>
+            </div><br>
+            <button onclick="showSection(mainSection,'/');" class="button-side">Main</button><br>
+          
+                <button id="postsPageButton" class="button-side">Posts</button><br>
+                <button id="postMyPageButton" class="button-side">My Posts</button><br>
+                <button id="openChatButton" class="button-side">Chat</button><br>
+                <button id="logoutPostButton" class="button-side">Logout</button>
+           
+        </div>
+        <div class="container-main">
+            <button class="button-create" onclick="showSection(createPostSection, '/create-post');">Create Post</button>    
+        </div>
+       
+        <div class="container-post">
+
+            <!-- This is where posts will be dynamically inserted -->
+            <div id="postsContainer">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Post  -->
+    <section id="createPostSection" hidden>
+        <button class="return-button" id="return-to-post" >Return</button>
+        <div class="container-create">
+            <h1>Create a New Post</h1>
+            
+            <form id="createPostForm" action="" method="POST">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" rows="6" required></textarea>
+                <br><br><label for="category">Category:</label>
+
+                    <label>
+                        <input type="checkbox" name="category" value="Nature"> Nature
+                    </label>
+                    
+                    <label>
+                        <input type="checkbox" name="category" value="Food"> Food
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Sport"> Sport
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="Travel"> Travel
+                    </label><br><br>
+                <input type="submit" value="Post it" class="button-create">
+            </form>
+        </div>
+    </section>
+
+    <section id="commentsSection" hidden>
+    </section>
+
+    <!-- About Us -->
+    <section id="aboutUsSection" hidden>
+        <div class="container-about">
+            <div class="box-about">
+                <h2>About This Site</h2>
+                <p>We are a group of 5 that created a site that does the following:</p>
+                <h4>Technology Stack</h4>
+                <p>We use <strong>SQLite</strong> to store data like users, posts, and comments. SQLite is a popular choice for local storage in web applications.</p>
+    
+                <h4>Authentication</h4>
+                <p>Users can register and log in, creating a session with cookies. Passwords are securely stored and checked against the database.</p>
+    
+                <h4>Communication Features</h4>
+                <p>Only registered users can create posts and comments, which are visible to all users. Non-registered users can view posts and comments.</p>
+    
+                <h4>Likes and Dislikes</h4>
+                <p>Registered users can like or dislike posts and comments, with visibility for all users.</p>
+    
+                <h4>Filtering Options</h4>
+                <p>Users can filter displayed posts by categories, created posts, and liked posts.</p>
+    
+                <h4>Containerization</h4>
+                <p>We utilize <strong>Docker</strong> to manage our application environment.</p>
+            </div>
+            <button class="return-button" onclick="window.location.href='http://localhost:8888/';">Return</button>
+        </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="chatSection" hidden>
+        <div class="chat-container">
+            <div class="chat-sidebar">
+            <h3>Users</h3>
+            <ul id="userList"></ul>
+        </div>
+        <div class="chat-main">
+            <div class="chat-header">
+            <button class="return-button" onclick="returnToPosts()">Return</button>
+            <h3 id="chatWithLabel">Chat</h3>
+            </div>
+            <div id="chatWindow" class="chat-window">
+                <div class="messages-container">
+                </div>
+            </div>
+            <form id="chatForm">
+                <input type="text" id="chatInput" placeholder="Type a message..." required />
+                <button type="submit" class="button-main">Send</button>
+            </form>
+        </div>
+        </div>
+    </section>
+    
+    <section id="errorSection" hidden>
+        <div class="container-error">
+            <button class="return-button" onclick="window.location.href='http://localhost:8888/';">Return</button>
+            <div id="errorContainer">
+            </div>
+        </div>
+    </section>
+
+  </body>
+</html>
